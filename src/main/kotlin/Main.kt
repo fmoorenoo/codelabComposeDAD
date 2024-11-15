@@ -16,26 +16,25 @@ import androidx.compose.ui.window.application
 fun App() {
     MaterialTheme {
         Surface{
-//            var showScreen1 by remember {mutableStateOf(true)}
-//            if (showScreen1) {
-//                screen1(showScreen1)
-//            } else {
-//                screen2()
-//            }
-            screen2()
+            var showScreen1 by remember {mutableStateOf(true)}
+            if (showScreen1) {
+                screen1(showScreen = {showScreen1 = false})
+            } else {
+                screen2()
+            }
         }
     }
 }
 
 @Composable
-fun screen1(showScreen: Boolean) {
+fun screen1(showScreen: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Bienvenido a la peor app del mercado!")
-        Button(onClick = {}) {
+        Button(onClick = showScreen) {
             Text(text = "Entrar")
         }
     }
