@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
@@ -47,21 +48,22 @@ fun screen1(showScreen: Boolean) {
 
 @Composable
 fun screen2() {
-
     val textos = arrayOf(
         "Holalojfiuaehfef",
         "Hieufhewufhqeuif",
-        "Holalojfiuaehfef",
-        "Hieufhewufhqeuif",
+        "Holalojdaehfef",
+        "Hieufhewusssssfhqeuif",
+        "Hieufhdheuif",
     )
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Cyan)
+            .padding(30.dp)
     ) {
         textos.forEach { texto ->
             var expanded by remember { mutableStateOf(false)}
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(texto)
                 Button(onClick = {expanded = !expanded}) {
                     Text(text = if (expanded) "Show less" else "Show more")
