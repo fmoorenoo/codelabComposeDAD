@@ -58,12 +58,21 @@ fun screen2() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Cyan)
-            .padding(30.dp)
+            .background(color = Color.Black)
+            .padding(30.dp),
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+
     ) {
         textos.forEach { texto ->
             var expanded by remember { mutableStateOf(false)}
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color = Color.LightGray)
+                    .padding(vertical = 10.dp, horizontal = 15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(texto)
                 Button(onClick = {expanded = !expanded}) {
                     Text(text = if (expanded) "Show less" else "Show more")
