@@ -1,7 +1,6 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -13,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
@@ -20,12 +20,13 @@ import androidx.compose.ui.window.application
 fun App() {
     MaterialTheme {
         Surface{
-            var showScreen1 by remember {mutableStateOf(true)}
-            if (showScreen1) {
-                screen1(showScreen1)
-            } else {
-                screen2()
-            }
+//            var showScreen1 by remember {mutableStateOf(true)}
+//            if (showScreen1) {
+//                screen1(showScreen1)
+//            } else {
+//                screen2()
+//            }
+            screen2()
         }
     }
 }
@@ -47,6 +48,27 @@ fun screen1(showScreen: Boolean) {
 @Composable
 fun screen2() {
 
+    val textos = arrayOf(
+        "Holalojfiuaehfef",
+        "Hieufhewufhqeuif",
+        "Holalojfiuaehfef",
+        "Hieufhewufhqeuif",
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Cyan)
+    ) {
+        textos.forEach { texto ->
+            var expanded by remember { mutableStateOf(false)}
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(texto)
+                Button(onClick = {expanded = !expanded}) {
+                    Text(text = if (expanded) "Show less" else "Show more")
+                }
+            }
+        }
+    }
 }
 
 
