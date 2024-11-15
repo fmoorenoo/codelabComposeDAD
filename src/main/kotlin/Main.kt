@@ -1,15 +1,10 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,16 +60,22 @@ fun screen2() {
     ) {
         textos.forEach { texto ->
             var expanded by remember { mutableStateOf(false)}
+            var currentPadding by remember { mutableIntStateOf(0) }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Color.LightGray)
-                    .padding(vertical = 10.dp, horizontal = 15.dp),
+                    .padding(vertical = 10.dp, horizontal = 15.dp)
+                    .padding(bottom = currentPadding.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
+
             ) {
                 Text(texto)
-                Button(onClick = {expanded = !expanded}) {
+                Button(onClick = {
+                    expanded = !expanded
+                    currentPadding = if (!expanded) 0 else 50
+                }) {
                     Text(text = if (expanded) "Show less" else "Show more")
                 }
             }
