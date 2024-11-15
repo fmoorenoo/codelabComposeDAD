@@ -20,13 +20,18 @@ import androidx.compose.ui.window.application
 fun App() {
     MaterialTheme {
         Surface{
-            screen1()
+            var showScreen1 by remember {mutableStateOf(true)}
+            if (showScreen1) {
+                screen1(showScreen1)
+            } else {
+                screen2()
+            }
         }
     }
 }
 
 @Composable
-fun screen1() {
+fun screen1(showScreen: Boolean) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
