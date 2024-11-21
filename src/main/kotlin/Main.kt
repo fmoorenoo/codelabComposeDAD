@@ -1,3 +1,6 @@
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -8,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -42,6 +46,7 @@ fun screen1(showScreen: () -> Unit) {
 
 @Composable
 fun screen2() {
+
     val textos = arrayOf(
         "Holalojfiuaehfef",
         "Hieufhewufhqeuif",
@@ -54,18 +59,26 @@ fun screen2() {
             .fillMaxSize()
             .background(color = Color.Black)
             .padding(30.dp),
-        verticalArrangement = Arrangement.spacedBy(15.dp),
-
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         textos.forEach { texto ->
             var expanded by remember { mutableStateOf(false)}
-            var currentPadding by remember { mutableIntStateOf(0) }
+
+            val animationPadding by
+            animateDpAsState(
+                if (expanded) 48.dp else 0.dp,
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+            )
+            var currentPadding = animationPadding.coerceAtLeast(0.dp)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Color.LightGray)
                     .padding(vertical = 10.dp, horizontal = 15.dp)
-                    .padding(bottom = currentPadding.dp),
+                    .padding(bottom = currentPadding),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
 
@@ -73,7 +86,7 @@ fun screen2() {
                 Text(texto)
                 Button(onClick = {
                     expanded = !expanded
-                    currentPadding = if (!expanded) 0 else 50
+                    currentPadding = if (!expanded) 0.dp else 50.dp
                 }) {
                     Text(text = if (expanded) "Show less" else "Show more")
                 }
